@@ -84,31 +84,4 @@ void main() {
       },
     );
   });
-
-  group('ToggleScheduleVisibility', () {
-    final paymentsInfoModel = PaymentsInfoModel.fromJson(mockPaymentsJson);
-
-    final initialState = PaymentsLoaded(
-      paymentsInfo: paymentsInfoModel,
-      visibleSchedules: const {1: false},
-    );
-
-    blocTest<PaymentsBloc, PaymentsState>(
-      'updates visibility for a specific schedule',
-      build: () => paymentsBloc,
-      seed: () => initialState,
-      act:
-          (bloc) => bloc.add(
-            const ToggleScheduleVisibility(scheduleId: 1, isVisible: true),
-          ),
-      expect:
-          () => [
-            isA<PaymentsLoaded>().having(
-              (state) => state.visibleSchedules[1],
-              'scheduleId 1 visibility',
-              isTrue,
-            ),
-          ],
-    );
-  });
 }

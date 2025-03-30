@@ -11,7 +11,6 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     on<FetchPayments>(_onFetchPayments);
     on<RefreshPayments>(_onRefreshPayments);
     on<FilterPayments>(_onFilterPayments);
-    on<ToggleScheduleVisibility>(_onToggleScheduleVisibility);
   }
 
   Future<void> _onFetchPayments(
@@ -51,22 +50,6 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     if (state is PaymentsLoaded) {
       final currentState = state as PaymentsLoaded;
       emit(currentState.copyWith(activeFilters: event.activeFilters));
-    }
-  }
-
-  void _onToggleScheduleVisibility(
-    ToggleScheduleVisibility event,
-    Emitter<PaymentsState> emit,
-  ) {
-    if (state is PaymentsLoaded) {
-      final currentState = state as PaymentsLoaded;
-      final updatedVisibility = Map<int, bool>.from(
-        currentState.visibleSchedules,
-      );
-
-      updatedVisibility[event.scheduleId] = event.isVisible;
-
-      emit(currentState.copyWith(visibleSchedules: updatedVisibility));
     }
   }
 }

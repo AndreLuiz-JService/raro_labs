@@ -38,5 +38,5 @@ class MockPaymentsJsonEmpty extends MockPaymentsJson {
 
 class MockPaymentsJsonError extends MockPaymentsJson {
   @override
-  Map<String, dynamic> get value => mockErrorJson;
+  Map<String, dynamic> get value => throw Exception('Infra Error');
 }

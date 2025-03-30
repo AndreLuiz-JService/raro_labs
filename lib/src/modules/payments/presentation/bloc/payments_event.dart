@@ -23,16 +23,3 @@ class FilterPayments extends PaymentsEvent {
   @override
   List<Object> get props => [activeFilters];
 }
-
-class ToggleScheduleVisibility extends PaymentsEvent {
-  final int scheduleId;
-  final bool isVisible;
-
-  const ToggleScheduleVisibility({
-    required this.scheduleId,
-    required this.isVisible,
-  });
-
-  @override
-  List<Object> get props => [scheduleId, isVisible];
-}
