@@ -4,18 +4,39 @@ import 'package:base_project/src/modules/payments/domain/domain.dart';
 import 'package:base_project/src/modules/payments/infra/mock/mock.dart';
 
 class PaymentsDatasourceImpl implements PaymentsDataSource {
-  PaymentsDatasourceImpl();
+  late final MockPaymentsJson mockJson;
+
+  PaymentsDatasourceImpl(this.mockJson);
 
   @override
   Future<PaymentsInfoEntity> getPaymentsInfo() async {
     try {
-      final response = await Future.delayed(Duration(milliseconds: 1500)).then((_) {
+      final response = await Future.delayed(Duration(milliseconds: 1500), () {
         // INFO: use mockEmptyJson or mockPaymentsJson
-        return mockPaymentsJson; /* mockEmptyJson */
+        return mockJson; /* mockEmptyJson */
       });
-      return PaymentsInfoModel.fromJson(response);
+      return PaymentsInfoModel.fromJson(response.value);
     } catch (e) {
       throw InfraError(InfraCode.unexpected, error: e);
     }
   }
+}
+
+abstract class MockPaymentsJson {
+  Map<String, dynamic> get value;
+}
+
+class MockPaymentsJsonSuccess extends MockPaymentsJson {
+  @override
+  Map<String, dynamic> get value => mockPaymentsJson;
+}
+
+class MockPaymentsJsonEmpty extends MockPaymentsJson {
+  @override
+  Map<String, dynamic> get value => mockEmptyJson;
+}
+
+class MockPaymentsJsonError extends MockPaymentsJson {
+  @override
+  Map<String, dynamic> get value => mockErrorJson;
 }

@@ -16,5 +16,10 @@ abstract class PaymentsInfoEntity extends Equatable {
   });
 
   @override
-  List<Object> get props => [paymentsScheduled, summary, transactionFilter, transactions];
+  List<Object> get props => [
+    paymentsScheduled,
+    summary,
+    transactionFilter,
+    transactions,
+  ];
 }

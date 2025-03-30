@@ -5,7 +5,11 @@ abstract class PaymentsTransactionFilterEntity extends Equatable {
   final String label;
   final bool isDefault;
 
-  const PaymentsTransactionFilterEntity({required this.key, required this.label, required this.isDefault});
+  const PaymentsTransactionFilterEntity({
+    required this.key,
+    required this.label,
+    required this.isDefault,
+  });
 
   @override
   List<Object> get props => [key, label, isDefault];

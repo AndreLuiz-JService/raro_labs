@@ -1,3 +1,4 @@
+// Simulate a success response from the server
 final mockPaymentsJson = {
   "paymentsScheduled": [
     {
@@ -429,11 +430,23 @@ final mockPaymentsJson = {
     {"key": "processDate", "label": "Process Date", "isDefault": true},
     {"key": "actualPaymentAmount", "label": "Amount", "isDefault": true},
     {"key": "type", "label": "Type", "isDefault": true},
-    {"key": "actualPrincipalPaymentAmount", "label": "Principal", "isDefault": false},
-    {"key": "actualInterestPaymentAmount", "label": "Interest", "isDefault": false},
+    {
+      "key": "actualPrincipalPaymentAmount",
+      "label": "Principal",
+      "isDefault": false,
+    },
+    {
+      "key": "actualInterestPaymentAmount",
+      "label": "Interest",
+      "isDefault": false,
+    },
     {"key": "actualFee", "label": "Late Fee", "isDefault": false},
     {"key": "actualPaymentPostDate", "label": "Post Date", "isDefault": false},
-    {"key": "outstandingPrincipalBalance", "label": "Principal Balance", "isDefault": false},
+    {
+      "key": "outstandingPrincipalBalance",
+      "label": "Principal Balance",
+      "isDefault": false,
+    },
   ],
   "transactions": [
     {
@@ -691,6 +704,7 @@ final mockPaymentsJson = {
   ],
 };
 
+// Simulate a empty response from the server
 final mockEmptyJson = {
   "paymentsScheduled": [],
   "summary": [
@@ -699,6 +713,9 @@ final mockEmptyJson = {
     {"label": "Principal Paid", "value": 0},
     {"label": "Interest Paid", "value": 0},
   ],
-  "transactionHeaders": [],
+  "transactionFilters": [],
   "transactions": [],
 };
+
+// Simulate a error response from the server
+final mockErrorJson = {"error": "Error message"};
