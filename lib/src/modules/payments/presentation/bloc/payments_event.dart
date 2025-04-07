@@ -1,3 +1,4 @@
+import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PaymentsEvent extends Equatable {
@@ -22,4 +23,13 @@ class FilterPayments extends PaymentsEvent {
 
   @override
   List<Object> get props => [activeFilters];
+}
+
+class ChangeViewType extends PaymentsEvent {
+  final PaymentsViewType viewType;
+
+  const ChangeViewType(this.viewType);
+
+  @override
+  List<Object> get props => [viewType];
 }

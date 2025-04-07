@@ -1,5 +1,3 @@
-import 'package:base_project/src/core/base/interfaces/usecase_interface.dart';
-import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:get_it/get_it.dart';
 import 'package:base_project/src/modules/payments/data/datasource/payments_datasource.dart';
 import 'package:base_project/src/modules/payments/infra/datasource/payments_datasource_impl.dart';
@@ -15,7 +13,7 @@ Future<void> init() async {
   getIt.registerFactory(() => PaymentsBloc(getIt()));
 
   // Use cases
-  getIt.registerLazySingleton<UseCase<PaymentsInfoEntity, NoParams>>(
+  getIt.registerLazySingleton<GetPaymentsUseCase>(
     () => GetPaymentsUseCase(getIt()),
   );
 

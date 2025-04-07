@@ -11,19 +11,29 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     on<FetchPayments>(_onFetchPayments);
     on<RefreshPayments>(_onRefreshPayments);
     on<FilterPayments>(_onFilterPayments);
+    on<ChangeViewType>(_onChangeViewType);
   }
 
   Future<void> _onFetchPayments(
     FetchPayments event,
     Emitter<PaymentsState> emit,
   ) async {
-    emit(const PaymentsLoading());
+    // Preserva o tipo de visualização atual se existir
+    final currentViewType =
+        state is PaymentsLoaded
+            ? (state as PaymentsLoaded).viewType
+            : PaymentsViewType.schedule;
+
+    emit(PaymentsLoading(viewType: currentViewType));
 
     final result = await _getPaymentsUseCase(NoParams());
 
     result.fold(
-      (failure) => emit(PaymentsError(failure.message)),
-      (paymentsInfo) => emit(PaymentsLoaded(paymentsInfo: paymentsInfo)),
+      (failure) =>
+          emit(PaymentsError(failure.message, viewType: currentViewType)),
+      (paymentsInfo) => emit(
+        PaymentsLoaded(paymentsInfo: paymentsInfo, viewType: currentViewType),
+      ),
     );
   }
 
@@ -37,7 +47,9 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
       final result = await _getPaymentsUseCase(NoParams());
 
       result.fold(
-        (failure) => emit(PaymentsError(failure.message)),
+        (failure) => emit(
+          PaymentsError(failure.message, viewType: currentState.viewType),
+        ),
         (paymentsInfo) =>
             emit(currentState.copyWith(paymentsInfo: paymentsInfo)),
       );
@@ -50,6 +62,30 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     if (state is PaymentsLoaded) {
       final currentState = state as PaymentsLoaded;
       emit(currentState.copyWith(activeFilters: event.activeFilters));
+    }
+  }
+
+  void _onChangeViewType(ChangeViewType event, Emitter<PaymentsState> emit) {
+    if (state is PaymentsInitial) {
+      add(const FetchPayments());
+      return;
+    }
+
+    if (state is PaymentsLoading) {
+      emit(PaymentsLoading(viewType: event.viewType));
+      return;
+    }
+
+    if (state is PaymentsLoaded) {
+      final currentState = state as PaymentsLoaded;
+      emit(currentState.copyWith(viewType: event.viewType));
+      return;
+    }
+
+    if (state is PaymentsError) {
+      final currentState = state as PaymentsError;
+      emit(PaymentsError(currentState.message, viewType: event.viewType));
+      return;
     }
   }
 }

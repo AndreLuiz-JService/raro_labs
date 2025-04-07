@@ -1,0 +1,1 @@
+enum PaymentsViewType { schedule, transactions }

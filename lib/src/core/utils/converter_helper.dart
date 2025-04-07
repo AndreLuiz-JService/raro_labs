@@ -15,7 +15,7 @@ class ConverterHelper {
 
   static String stringNullableToMMDDYYYY(String? date) {
     if (date == null || date.isEmpty) return '';
-    final formattedString = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+    final formattedString = DateFormat("yyyy-MM-dd").parse(date);
     final inputDate = DateTime.parse(formattedString.toString());
     return DateFormat('MM/dd/yyyy').format(inputDate);
   }
