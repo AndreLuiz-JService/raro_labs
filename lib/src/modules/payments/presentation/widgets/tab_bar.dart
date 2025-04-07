@@ -1,3 +1,4 @@
+import 'package:base_project/src/core/theme/app_theme.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:flutter/material.dart';
 
@@ -49,19 +50,15 @@ class TabBarWidget extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: isSelected ? Colors.green : Colors.transparent,
-                width: 2,
+                color: isSelected ? AppColors.success : AppColors.lightGrey,
+                width: isSelected ? 2 : 1,
               ),
             ),
           ),
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              color: isSelected ? Colors.black87 : Colors.grey,
-            ),
+            style: isSelected ? AppTextStyles.body : AppTextStyles.bodyLight,
           ),
         ),
       ),

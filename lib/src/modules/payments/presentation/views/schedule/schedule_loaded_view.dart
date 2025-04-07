@@ -3,6 +3,8 @@ import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/theme/app_theme.dart';
+
 class ScheduleLoadedView extends StatelessWidget {
   final PaymentsLoaded state;
 
@@ -31,7 +33,7 @@ class _EmptyScheduleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.all(32.0),
       child: Center(
         child: Text.rich(
@@ -40,14 +42,12 @@ class _EmptyScheduleView extends StatelessWidget {
             children: [
               TextSpan(
                 text: '\nschedule will appear here. This process may take',
-                style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
-              TextSpan(
-                text: '\n1-2 business days.',
-                style: TextStyle(color: Colors.grey, fontSize: 14),
-              ),
+              TextSpan(text: '\n1-2 business days.'),
             ],
-            style: TextStyle(color: Colors.grey, fontSize: 14),
+            style: AppTextStyles.bodyRegular.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
           ),
           textAlign: TextAlign.center,
         ),

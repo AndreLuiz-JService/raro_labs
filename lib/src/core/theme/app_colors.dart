@@ -7,6 +7,7 @@ class AppColors {
   static const Color primary = Color(0xFF232F69);
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey = Color.fromRGBO(134, 140, 152, 0.75);
+  static const Color lightGrey = Color.fromRGBO(222, 224, 227, 0.5);
 
   // auxiliary colors
   static const Color success = Color(0xFF54B73B);

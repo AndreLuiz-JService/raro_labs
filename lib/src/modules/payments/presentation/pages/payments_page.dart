@@ -1,11 +1,11 @@
 import 'package:base_project/src/core/infrastructure/di/injection_container.dart';
-import 'package:base_project/src/core/theme/app_theme.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/views/body_view.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class PaymentsPage extends StatefulWidget {
   const PaymentsPage({super.key});
@@ -33,7 +33,16 @@ class _PaymentsPageState extends State<PaymentsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Payments'),
-        backgroundColor: AppColors.primary,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset('assets/images/svg/question.svg'),
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<PaymentsBloc, PaymentsState>(
         bloc: bloc,

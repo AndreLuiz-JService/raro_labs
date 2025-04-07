@@ -40,6 +40,7 @@ class AppWidget extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.scaffoldBackground,
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
+          fontFamily: 'Lato',
         ),
         home: const PaymentsPage(),
       ),
