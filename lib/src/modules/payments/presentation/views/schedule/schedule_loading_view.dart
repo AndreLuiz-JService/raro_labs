@@ -1,3 +1,4 @@
+import 'package:base_project/src/modules/payments/presentation/widgets/shimmer_box.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleLoadingView extends StatelessWidget {
@@ -6,14 +7,14 @@ class ScheduleLoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(
-          12,
+          4,
           (index) => Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: SkeletonItem(),
           ),
         ),
@@ -45,24 +46,10 @@ class SkeletonItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: SkeletonBox()),
+          Expanded(child: ShimmerBox(height: 56)),
           const SizedBox(width: 16),
-          Expanded(child: SkeletonBox()),
+          Expanded(child: ShimmerBox(height: 56)),
         ],
-      ),
-    );
-  }
-}
-
-class SkeletonBox extends StatelessWidget {
-  const SkeletonBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(6),
       ),
     );
   }

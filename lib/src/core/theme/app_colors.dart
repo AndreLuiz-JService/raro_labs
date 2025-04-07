@@ -5,6 +5,7 @@ class AppColors {
 
   // Primary Colors
   static const Color primary = Color(0xFF232F69);
+  static const Color primaryShadow = Color.fromRGBO(35, 47, 105, 0.08);
   static const Color white = Color(0xFFFFFFFF);
   static const Color grey = Color.fromRGBO(134, 140, 152, 0.75);
   static const Color lightGrey = Color.fromRGBO(222, 224, 227, 0.5);
@@ -21,4 +22,9 @@ class AppColors {
 
   // background colors
   static const Color scaffoldBackground = Color(0xFFF4F5F6);
+
+  // shimmer gradient colors
+  static const LinearGradient shimmerGradient = LinearGradient(
+    colors: [Color(0xFFF1EFEF), Color(0xFFF9F8F8), Color(0xFFE7E5E5)],
+  );
 }

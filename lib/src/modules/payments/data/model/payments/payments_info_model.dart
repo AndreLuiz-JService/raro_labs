@@ -38,4 +38,10 @@ class PaymentsInfoModel extends PaymentsInfoEntity {
                 : [],
       );
   PaymentsInfoModel.empty() : this.fromJson({});
+
+  @override
+  List<PaymentsScheduledEntity> get paymentsScheduledSorted {
+    return paymentsScheduled
+      ..sort((a, b) => a.paymentDate.compareTo(b.paymentDate));
+  }
 }
