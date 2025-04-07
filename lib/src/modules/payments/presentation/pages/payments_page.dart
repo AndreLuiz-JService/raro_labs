@@ -2,6 +2,7 @@ import 'package:base_project/src/core/infrastructure/di/injection_container.dart
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/views/body_view.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/new_payment_widget.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,8 +55,9 @@ class _PaymentsPageState extends State<PaymentsPage> {
             slivers: [
               SliverList(
                 delegate: SliverChildListDelegate([
-                  // TabBar sempre visível independente do estado
+                  NewPaymentWidget(state: state),
                   TabBarWidget(
+                    state: state,
                     currentViewType: viewType,
                     onViewTypeChanged: _handleViewTypeChanged,
                     firstTabTitle: 'SCHEDULE',

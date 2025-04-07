@@ -12,6 +12,7 @@ class AppColors {
 
   // auxiliary colors
   static const Color success = Color(0xFF54B73B);
+  static const Color successDark = Color(0xFF2C681D);
   static const Color error = Color(0xFFD32F2F);
   static const Color warning = Color(0xFFFFA726);
   static const Color info = Color(0xFF00BCD4);

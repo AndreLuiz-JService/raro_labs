@@ -29,13 +29,13 @@ class AppTextStyles {
   );
 
   // Dialog Text Styles
-  static const TextStyle dialogTitle = TextStyle(
+  static const TextStyle titleLight = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.textSecondary,
   );
 
-  static const TextStyle dialogBody = TextStyle(
+  static const TextStyle titleRegular = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.textPrimary,

@@ -1,11 +1,13 @@
 import 'package:base_project/src/core/theme/app_theme.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
+import 'package:base_project/src/modules/payments/presentation/presentation.dart';
 import 'package:flutter/material.dart';
 
 class TabBarWidget extends StatelessWidget {
   final PaymentsViewType currentViewType;
   final String firstTabTitle;
   final String secondTabTitle;
+  final PaymentsState state;
   final Function(PaymentsViewType) onViewTypeChanged;
 
   const TabBarWidget({
@@ -14,6 +16,7 @@ class TabBarWidget extends StatelessWidget {
     required this.onViewTypeChanged,
     required this.firstTabTitle,
     required this.secondTabTitle,
+    required this.state,
   });
 
   @override
@@ -32,6 +35,7 @@ class TabBarWidget extends StatelessWidget {
             viewType: PaymentsViewType.transactions,
             isSelected: currentViewType == PaymentsViewType.transactions,
           ),
+          _ToggleFilter(currentViewType: currentViewType, state: state),
         ],
       ),
     );
@@ -63,5 +67,42 @@ class TabBarWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ToggleFilter extends StatelessWidget {
+  final PaymentsViewType currentViewType;
+  final PaymentsState state;
+
+  const _ToggleFilter({required this.currentViewType, required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    switch (state) {
+      case PaymentsLoaded():
+        final payments = (state as PaymentsLoaded);
+        final paymentsViewType = payments.viewType;
+        final paymentsInfo = payments.paymentsInfo;
+        if (paymentsViewType == PaymentsViewType.schedule) {
+          return paymentsInfo.paymentsScheduled.isNotEmpty
+              ? IconButton(
+                onPressed: null,
+                icon: Icon(Icons.more_vert, color: AppColors.grey),
+              )
+              : const SizedBox.shrink();
+        }
+
+        return paymentsInfo.transactions.isNotEmpty
+            ? IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.more_vert, color: AppColors.textPrimary),
+            )
+            : const SizedBox.shrink();
+
+      case PaymentsLoading():
+        return const Icon(Icons.more_vert, color: AppColors.grey);
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }

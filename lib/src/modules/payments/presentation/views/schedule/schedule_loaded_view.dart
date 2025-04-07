@@ -81,7 +81,7 @@ class _ScheduleItem extends StatelessWidget {
                 ConverterHelper.stringNullableToMMDDYYYY(
                   schedule.paymentDate.toString(),
                 ),
-                style: AppTextStyles.dialogBody,
+                style: AppTextStyles.titleLight,
               ),
             ),
           ),
@@ -93,7 +93,7 @@ class _ScheduleItem extends StatelessWidget {
                 children: [
                   Text(
                     ConverterHelper.currencyFormatter(schedule.interest),
-                    style: AppTextStyles.dialogBody,
+                    style: AppTextStyles.titleLight,
                   ),
                   const SizedBox(width: 16),
 
