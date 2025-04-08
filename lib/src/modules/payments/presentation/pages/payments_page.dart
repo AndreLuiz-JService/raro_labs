@@ -2,6 +2,7 @@ import 'package:base_project/src/core/infrastructure/di/injection_container.dart
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/views/body_view.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/summary_cards.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/new_payment_widget.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
             slivers: [
               SliverList(
                 delegate: SliverChildListDelegate([
+                  SummaryCards(state: state),
                   NewPaymentWidget(state: state),
                   TabBarWidget(
                     state: state,
