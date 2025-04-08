@@ -66,7 +66,7 @@ class _ScheduleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 56,
-      margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.white,

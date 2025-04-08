@@ -2,8 +2,44 @@ import 'package:base_project/src/core/theme/app_theme.dart';
 import 'package:base_project/src/core/utils/utils.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/presentation.dart';
-import 'package:base_project/src/modules/payments/presentation/widgets/shimmer_box.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/skeleton_with_title.dart';
 import 'package:flutter/material.dart';
+
+class _SummaryListContainer<T extends Widget> extends StatelessWidget {
+  final int itemCount;
+  final T Function(int) itemBuilder;
+  const _SummaryListContainer({
+    required this.itemCount,
+    required this.itemBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 24, bottom: 12),
+      height: 74,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: itemCount,
+        itemBuilder: (context, index) {
+          final isLast = index == itemCount - 1;
+          final isFirst = index == 0;
+
+          return Padding(
+            padding: EdgeInsets.only(
+              left: isFirst ? 12 : 0,
+              right: isLast ? 12 : 0,
+            ),
+            child: itemBuilder(index),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(width: 12);
+        },
+      ),
+    );
+  }
+}
 
 class SummaryCards extends StatelessWidget {
   final PaymentsState state;
@@ -20,53 +56,18 @@ class SummaryCards extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        return Container(
-          margin: const EdgeInsets.only(top: 24, bottom: 12),
-          height: 74,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: payments.paymentsInfo.summary.length,
-            itemBuilder: (context, index) {
-              final isLast = index == payments.paymentsInfo.summary.length - 1;
-              final isFirst = index == 0;
-
-              final summary = payments.paymentsInfo.summary[index];
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: isFirst ? 12 : 0,
-                  right: isLast ? 12 : 0,
-                ),
-                child: _SummaryItem(summary: summary),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(width: 12);
-            },
-          ),
+        return _SummaryListContainer<_SummaryItem>(
+          itemCount: payments.paymentsInfo.summary.length,
+          itemBuilder:
+              (index) =>
+                  _SummaryItem(summary: payments.paymentsInfo.summary[index]),
         );
 
       case PaymentsLoading():
-        return Container(
-          margin: const EdgeInsets.only(top: 24, bottom: 12),
-          height: 74,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              final isLast = index == 2;
-              final isFirst = index == 0;
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: isFirst ? 12 : 0,
-                  right: isLast ? 12 : 0,
-                ),
-                child: const _SummaryItemSkeleton(),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(width: 12);
-            },
-          ),
+        return _SummaryListContainer<_SummaryItemSkeleton>(
+          itemCount: summaryLabels.length,
+          itemBuilder:
+              (index) => _SummaryItemSkeleton(title: summaryLabels[index]),
         );
       default:
         return const SizedBox.shrink();
@@ -74,9 +75,9 @@ class SummaryCards extends StatelessWidget {
   }
 }
 
-class _SummaryItem extends StatelessWidget {
-  final PaymentsSummaryEntity summary;
-  const _SummaryItem({required this.summary});
+class _BaseSummaryCard extends StatelessWidget {
+  final Widget child;
+  const _BaseSummaryCard({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,18 @@ class _SummaryItem extends StatelessWidget {
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
       ),
+      child: child,
+    );
+  }
+}
+
+class _SummaryItem extends StatelessWidget {
+  final PaymentsSummaryEntity summary;
+  const _SummaryItem({required this.summary});
+
+  @override
+  Widget build(BuildContext context) {
+    return _BaseSummaryCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,25 +115,18 @@ class _SummaryItem extends StatelessWidget {
 }
 
 class _SummaryItemSkeleton extends StatelessWidget {
-  const _SummaryItemSkeleton();
+  final String title;
+  const _SummaryItemSkeleton({required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 148,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ShimmerBox(width: 80, height: 12),
-          const SizedBox(height: 4),
-          ShimmerBox(width: 112, height: 24),
-        ],
-      ),
-    );
+    return _BaseSummaryCard(child: SkeletonWithTitle(title: title));
   }
 }
+
+List<String> summaryLabels = [
+  "Outstanding",
+  "Total Paid",
+  "Principal Paid",
+  "Interest Paid",
+];

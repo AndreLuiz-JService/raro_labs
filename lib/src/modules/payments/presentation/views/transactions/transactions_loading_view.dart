@@ -1,4 +1,4 @@
-import 'package:base_project/src/modules/payments/presentation/widgets/shimmer_box.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/skeleton_with_title.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsLoadingView extends StatelessWidget {
@@ -7,7 +7,7 @@ class TransactionsLoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -29,8 +29,8 @@ class _SkeletonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
-      padding: const EdgeInsets.all(16.0),
+      height: 132,
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
@@ -43,12 +43,30 @@ class _SkeletonItem extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          Expanded(child: ShimmerBox(height: 56)),
-          const SizedBox(width: 16),
-          Expanded(child: ShimmerBox(height: 56)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              spacing: 16,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: SkeletonWithTitle(title: "Process date")),
+                Expanded(child: SkeletonWithTitle(title: "Amount")),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              spacing: 16,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: SkeletonWithTitle(title: "Type")),
+                Expanded(child: SkeletonWithTitle()),
+              ],
+            ),
+          ),
         ],
       ),
     );
