@@ -10,6 +10,9 @@ class AppColors {
   static const Color grey = Color.fromRGBO(134, 140, 152, 0.75);
   static const Color lightGrey = Color.fromRGBO(222, 224, 227, 0.5);
 
+  // border colors
+  static const Color border = Color.fromRGBO(222, 224, 227, 1);
+
   // auxiliary colors
   static const Color success = Color(0xFF54B73B);
   static const Color successDark = Color(0xFF2C681D);

@@ -31,9 +31,21 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     result.fold(
       (failure) =>
           emit(PaymentsError(failure.message, viewType: currentViewType)),
-      (paymentsInfo) => emit(
-        PaymentsLoaded(paymentsInfo: paymentsInfo, viewType: currentViewType),
-      ),
+      (paymentsInfo) {
+        final activeFilters = Map.fromEntries(
+          paymentsInfo.transactionFilter
+              .where((filter) => filter.isDefault)
+              .map((filter) => MapEntry(filter.label, true)),
+        );
+
+        emit(
+          PaymentsLoaded(
+            paymentsInfo: paymentsInfo,
+            viewType: currentViewType,
+            activeFilters: activeFilters,
+          ),
+        );
+      },
     );
   }
 
@@ -50,8 +62,19 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
         (failure) => emit(
           PaymentsError(failure.message, viewType: currentState.viewType),
         ),
-        (paymentsInfo) =>
-            emit(currentState.copyWith(paymentsInfo: paymentsInfo)),
+        (paymentsInfo) {
+          final activeFilters = Map.fromEntries(
+            paymentsInfo.transactionFilter
+                .where((filter) => filter.isDefault)
+                .map((filter) => MapEntry(filter.label, true)),
+          );
+          emit(
+            currentState.copyWith(
+              paymentsInfo: paymentsInfo,
+              activeFilters: activeFilters,
+            ),
+          );
+        },
       );
     } else {
       add(const FetchPayments());
@@ -61,7 +84,20 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
   void _onFilterPayments(FilterPayments event, Emitter<PaymentsState> emit) {
     if (state is PaymentsLoaded) {
       final currentState = state as PaymentsLoaded;
-      emit(currentState.copyWith(activeFilters: event.activeFilters));
+
+      // Mantém os filtros default sempre ativos
+      final defaultFilters =
+          currentState.paymentsInfo.transactionFilter
+              .where((filter) => filter.isDefault)
+              .map((filter) => filter.label)
+              .toSet();
+
+      final updatedFilters = Map<String, bool>.from(event.activeFilters);
+      for (final defaultFilter in defaultFilters) {
+        updatedFilters[defaultFilter] = true;
+      }
+
+      emit(currentState.copyWith(activeFilters: updatedFilters));
     }
   }
 

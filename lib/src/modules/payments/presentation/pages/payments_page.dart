@@ -22,12 +22,15 @@ class _PaymentsPageState extends State<PaymentsPage> {
   @override
   void initState() {
     super.initState();
-    // Carrega os dados iniciais
     bloc.add(const FetchPayments());
   }
 
   void _handleViewTypeChanged(PaymentsViewType viewType) {
     bloc.add(ChangeViewType(viewType));
+  }
+
+  void _handleFiltersChanged(Map<String, bool> newFilters) {
+    bloc.add(FilterPayments(newFilters));
   }
 
   @override
@@ -62,12 +65,14 @@ class _PaymentsPageState extends State<PaymentsPage> {
                     state: state,
                     currentViewType: viewType,
                     onViewTypeChanged: _handleViewTypeChanged,
+                    onFiltersChanged: _handleFiltersChanged,
                     firstTabTitle: 'SCHEDULE',
                     secondTabTitle: 'TRANSACTIONS',
                   ),
 
                   // Conteúdo baseado no tipo de visualização e estado
                   BodyView(state: state, viewType: viewType),
+                  const SizedBox(height: 24),
                 ]),
               ),
             ],

@@ -15,15 +15,24 @@ class ScheduleLoadedView extends StatelessWidget {
       return const _EmptyScheduleView();
     }
 
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: state.paymentsInfo.paymentsScheduled.length,
-      itemBuilder: (context, index) {
-        final schedule = state.paymentsInfo.paymentsScheduledSorted[index];
-        final isNextPayment = index == 0;
-        return _ScheduleItem(schedule: schedule, isNextPayment: isNextPayment);
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: state.paymentsInfo.paymentsScheduled.length,
+        itemBuilder: (context, index) {
+          final schedule = state.paymentsInfo.paymentsScheduledSorted[index];
+          final isNextPayment = index == 0;
+          return _ScheduleItem(
+            schedule: schedule,
+            isNextPayment: isNextPayment,
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 8);
+        },
+      ),
     );
   }
 }
@@ -66,7 +75,6 @@ class _ScheduleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 56,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: AppColors.white,

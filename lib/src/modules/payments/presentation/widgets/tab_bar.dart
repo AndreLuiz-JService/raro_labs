@@ -1,14 +1,17 @@
+import 'package:base_project/src/core/mixins/mixin.dart';
 import 'package:base_project/src/core/theme/app_theme.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/presentation.dart';
+import 'package:base_project/src/modules/payments/presentation/views/filter_modal.dart';
 import 'package:flutter/material.dart';
 
-class TabBarWidget extends StatelessWidget {
+class TabBarWidget extends StatefulWidget {
   final PaymentsViewType currentViewType;
   final String firstTabTitle;
   final String secondTabTitle;
   final PaymentsState state;
   final Function(PaymentsViewType) onViewTypeChanged;
+  final Function(Map<String, bool>) onFiltersChanged;
 
   const TabBarWidget({
     super.key,
@@ -17,7 +20,25 @@ class TabBarWidget extends StatelessWidget {
     required this.firstTabTitle,
     required this.secondTabTitle,
     required this.state,
+    required this.onFiltersChanged,
   });
+
+  @override
+  State<TabBarWidget> createState() => _TabBarWidgetState();
+}
+
+class _TabBarWidgetState extends State<TabBarWidget> with ModalMixin {
+  void _showFilterModal(PaymentsLoaded payments) {
+    showCustomBottomSheet(
+      child: FilterModal(
+        filters: payments.paymentsInfo.transactionFilter,
+        activeFilters: payments.activeFilters,
+        onFiltersChanged: widget.onFiltersChanged,
+      ),
+      isDismissible: false,
+      isScrollControlled: true,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +47,20 @@ class TabBarWidget extends StatelessWidget {
       child: Row(
         children: [
           _buildTabItem(
-            title: firstTabTitle,
+            title: widget.firstTabTitle,
             viewType: PaymentsViewType.schedule,
-            isSelected: currentViewType == PaymentsViewType.schedule,
+            isSelected: widget.currentViewType == PaymentsViewType.schedule,
           ),
           _buildTabItem(
-            title: secondTabTitle,
+            title: widget.secondTabTitle,
             viewType: PaymentsViewType.transactions,
-            isSelected: currentViewType == PaymentsViewType.transactions,
+            isSelected: widget.currentViewType == PaymentsViewType.transactions,
           ),
-          _ToggleFilter(currentViewType: currentViewType, state: state),
+          _ToggleFilter(
+            currentViewType: widget.currentViewType,
+            state: widget.state,
+            onShowFilterModal: _showFilterModal,
+          ),
         ],
       ),
     );
@@ -48,7 +73,7 @@ class TabBarWidget extends StatelessWidget {
   }) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => onViewTypeChanged(viewType),
+        onTap: () => widget.onViewTypeChanged(viewType),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
@@ -73,8 +98,13 @@ class TabBarWidget extends StatelessWidget {
 class _ToggleFilter extends StatelessWidget {
   final PaymentsViewType currentViewType;
   final PaymentsState state;
+  final Function(PaymentsLoaded) onShowFilterModal;
 
-  const _ToggleFilter({required this.currentViewType, required this.state});
+  const _ToggleFilter({
+    required this.currentViewType,
+    required this.state,
+    required this.onShowFilterModal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +124,7 @@ class _ToggleFilter extends StatelessWidget {
 
         return paymentsInfo.transactions.isNotEmpty
             ? IconButton(
-              onPressed: () {},
+              onPressed: () => onShowFilterModal(payments),
               icon: Icon(Icons.more_vert, color: AppColors.textPrimary),
             )
             : const SizedBox.shrink();

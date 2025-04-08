@@ -11,6 +11,7 @@ abstract class PaymentsTransactionsEntity extends Equatable {
   final double outstandingLoanBalance;
   final double actualFee;
   final String paymentType;
+  final int type;
 
   const PaymentsTransactionsEntity({
     required this.key,
@@ -23,7 +24,10 @@ abstract class PaymentsTransactionsEntity extends Equatable {
     required this.outstandingLoanBalance,
     required this.actualFee,
     required this.paymentType,
+    required this.type,
   });
+
+  String getValueByLabel(String label);
 
   @override
   List<Object> get props {
@@ -37,6 +41,7 @@ abstract class PaymentsTransactionsEntity extends Equatable {
       outstandingLoanBalance,
       actualFee,
       paymentType,
+      type,
     ];
   }
 
