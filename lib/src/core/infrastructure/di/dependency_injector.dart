@@ -28,7 +28,5 @@ Future<void> init() async {
   );
 
   // Mock
-  getIt.registerLazySingleton<MockPaymentsJson>(
-    () => MockPaymentsJsonSuccess(),
-  );
+  getIt.registerLazySingleton<MockPaymentsJson>(() => MockPaymentsJsonEmpty());
 }

@@ -50,7 +50,9 @@ class SummaryCards extends StatelessWidget {
     switch (state) {
       case PaymentsLoaded():
         final payments = (state as PaymentsLoaded);
-        final hasData = payments.paymentsInfo.summary.isNotEmpty;
+        final transactions = payments.paymentsInfo.transactions;
+        final paymentsScheduled = payments.paymentsInfo.paymentsScheduled;
+        final hasData = transactions.isNotEmpty || paymentsScheduled.isNotEmpty;
 
         if (!hasData) {
           return const SizedBox.shrink();

@@ -1,4 +1,4 @@
-import 'package:base_project/src/core/infrastructure/di/injection_container.dart';
+import 'package:base_project/src/core/infrastructure/di/dependency_injector.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/views/body_view.dart';

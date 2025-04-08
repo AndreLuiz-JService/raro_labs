@@ -24,7 +24,8 @@ class NewPaymentWidget extends StatelessWidget {
         return paymentsInfo.transactions.isNotEmpty
             ? _buildNewPaymentWidget()
             : const SizedBox.shrink();
-
+      case PaymentsError():
+        return const SizedBox.shrink();
       default:
         return _buildNewPaymentWidget(labelColor: AppColors.grey);
     }

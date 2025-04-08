@@ -35,6 +35,21 @@ class _FilterModalState extends State<FilterModal> {
     });
   }
 
+  void _handleClose() {
+    final newFilters =
+        selectedFilters.entries
+            .where((entry) => entry.value)
+            .map((entry) => entry.key)
+            .toList();
+
+    final newFiltersMap = Map.fromEntries(
+      newFilters.map((key) => MapEntry(key, true)),
+    );
+
+    widget.onFiltersChanged(newFiltersMap);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final filters = widget.filters;
@@ -65,10 +80,7 @@ class _FilterModalState extends State<FilterModal> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.close),
-                  onPressed: () {
-                    widget.onFiltersChanged(selectedFilters);
-                    Navigator.pop(context);
-                  },
+                  onPressed: _handleClose,
                 ),
               ],
             ),

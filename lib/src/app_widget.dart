@@ -3,7 +3,7 @@ import 'package:base_project/src/modules/payments/presentation/pages/pages.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:base_project/src/core/infrastructure/di/injection_container.dart'
+import 'package:base_project/src/core/infrastructure/di/dependency_injector.dart'
     as di;
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 
