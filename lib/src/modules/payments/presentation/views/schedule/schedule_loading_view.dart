@@ -1,3 +1,4 @@
+import 'package:base_project/src/modules/payments/presentation/widgets/scroll_indicator_place_holder.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/shimmer_box.dart';
 import 'package:flutter/material.dart';
 
@@ -8,16 +9,25 @@ class ScheduleLoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(
-          4,
-          (index) => Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: SkeletonItem(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: List.generate(
+                3,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: SkeletonItem(),
+                ),
+              ),
+            ),
           ),
-        ),
+          const SizedBox(width: 8),
+          const ScrollIndicatorPlaceholder(),
+        ],
       ),
     );
   }

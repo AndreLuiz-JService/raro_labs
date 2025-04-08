@@ -27,6 +27,8 @@ Future<void> init() async {
     () => PaymentsDatasourceImpl(getIt()),
   );
 
-  // Mock
-  getIt.registerLazySingleton<MockPaymentsJson>(() => MockPaymentsJsonEmpty());
+  // Mock: Set mock success, empty or error
+  getIt.registerLazySingleton<MockPaymentsJson>(
+    () => MockPaymentsJsonSuccess(),
+  );
 }

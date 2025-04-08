@@ -85,6 +85,7 @@ class _FilterModalState extends State<FilterModal> {
               ],
             ),
           ),
+          const SizedBox(height: 8),
           Flexible(
             child: ListView.builder(
               shrinkWrap: true,
@@ -123,7 +124,7 @@ class _FilterModalState extends State<FilterModal> {
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(
-                      vertical: 16,
+                      vertical: 12,
                       horizontal: 16,
                     ),
                     child: Row(

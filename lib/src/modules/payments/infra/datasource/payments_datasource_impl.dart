@@ -11,7 +11,7 @@ class PaymentsDatasourceImpl implements PaymentsDataSource {
   @override
   Future<PaymentsInfoEntity> getPaymentsInfo() async {
     try {
-      final response = await Future.delayed(Duration(seconds: 4), () {
+      final response = await Future.delayed(Duration(seconds: 3), () {
         // INFO: use mockEmptyJson or mockPaymentsJson
         return mockJson; /* mockEmptyJson */
       });

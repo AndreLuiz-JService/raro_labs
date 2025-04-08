@@ -19,13 +19,7 @@ class TransactionsView extends StatelessWidget {
       case PaymentsError():
         return ErrorView(message: (state as PaymentsError).message);
       default:
-        return const Center(
-          child: Text(
-            'Initializing transactions data...',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
-          ),
-        );
+        return const SizedBox.shrink();
     }
   }
 }

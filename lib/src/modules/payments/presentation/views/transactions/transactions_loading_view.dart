@@ -1,3 +1,4 @@
+import 'package:base_project/src/modules/payments/presentation/widgets/scroll_indicator_place_holder.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/skeleton_with_title.dart';
 import 'package:flutter/material.dart';
 
@@ -8,16 +9,25 @@ class TransactionsLoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(
-          2,
-          (index) => Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: _SkeletonItem(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: List.generate(
+                2,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: _SkeletonItem(),
+                ),
+              ),
+            ),
           ),
-        ),
+          const SizedBox(width: 8),
+          const ScrollIndicatorPlaceholder(),
+        ],
       ),
     );
   }

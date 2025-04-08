@@ -7,11 +7,12 @@ class AppColors {
   static const Color primary = Color(0xFF232F69);
   static const Color primaryShadow = Color.fromRGBO(35, 47, 105, 0.08);
   static const Color white = Color(0xFFFFFFFF);
+
+  // grey colors
+  static const Color border = Color.fromRGBO(222, 224, 227, 1);
   static const Color grey = Color.fromRGBO(134, 140, 152, 0.75);
   static const Color lightGrey = Color.fromRGBO(222, 224, 227, 0.5);
-
-  // border colors
-  static const Color border = Color.fromRGBO(222, 224, 227, 1);
+  static const Color greyIndicator = Color.fromRGBO(217, 217, 217, 1);
 
   // auxiliary colors
   static const Color success = Color(0xFF54B73B);

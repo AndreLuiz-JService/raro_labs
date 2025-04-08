@@ -37,6 +37,7 @@ class _TabBarWidgetState extends State<TabBarWidget> with ModalMixin {
       ),
       isDismissible: false,
       isScrollControlled: true,
+      enableDrag: false,
     );
   }
 
