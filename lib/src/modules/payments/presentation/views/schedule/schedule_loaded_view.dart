@@ -12,7 +12,7 @@ class ScheduleLoadedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.paymentsInfo.paymentsScheduled.isEmpty) {
-      return const _EmptyScheduleView();
+      return const EmptyScheduleView();
     }
 
     return Padding(
@@ -24,10 +24,7 @@ class ScheduleLoadedView extends StatelessWidget {
         itemBuilder: (context, index) {
           final schedule = state.paymentsInfo.paymentsScheduledSorted[index];
           final isNextPayment = index == 0;
-          return _ScheduleItem(
-            schedule: schedule,
-            isNextPayment: isNextPayment,
-          );
+          return ScheduleItem(schedule: schedule, isNextPayment: isNextPayment);
         },
         separatorBuilder: (context, index) {
           return const SizedBox(height: 8);
@@ -37,8 +34,8 @@ class ScheduleLoadedView extends StatelessWidget {
   }
 }
 
-class _EmptyScheduleView extends StatelessWidget {
-  const _EmptyScheduleView();
+class EmptyScheduleView extends StatelessWidget {
+  const EmptyScheduleView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +62,15 @@ class _EmptyScheduleView extends StatelessWidget {
   }
 }
 
-class _ScheduleItem extends StatelessWidget {
+class ScheduleItem extends StatelessWidget {
   final PaymentsScheduledEntity schedule;
   final bool isNextPayment;
 
-  const _ScheduleItem({required this.schedule, required this.isNextPayment});
+  const ScheduleItem({
+    super.key,
+    required this.schedule,
+    required this.isNextPayment,
+  });
 
   @override
   Widget build(BuildContext context) {

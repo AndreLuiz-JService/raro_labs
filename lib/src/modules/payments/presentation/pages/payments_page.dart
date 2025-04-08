@@ -1,4 +1,3 @@
-import 'package:base_project/src/core/infrastructure/di/dependency_injector.dart';
 import 'package:base_project/src/modules/payments/domain/entity/entity.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/views/body_view.dart';
@@ -17,11 +16,12 @@ class PaymentsPage extends StatefulWidget {
 }
 
 class _PaymentsPageState extends State<PaymentsPage> {
-  final bloc = getIt<PaymentsBloc>();
+  late final PaymentsBloc bloc;
 
   @override
   void initState() {
     super.initState();
+    bloc = context.read<PaymentsBloc>();
     bloc.add(const FetchPayments());
   }
 
@@ -50,9 +50,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
         ],
       ),
       body: BlocBuilder<PaymentsBloc, PaymentsState>(
-        bloc: bloc,
         builder: (context, state) {
-          // Determina o tipo de visualização atual com base no estado
           final viewType = _getCurrentViewType(state);
 
           return CustomScrollView(
@@ -69,8 +67,6 @@ class _PaymentsPageState extends State<PaymentsPage> {
                     firstTabTitle: 'SCHEDULE',
                     secondTabTitle: 'TRANSACTIONS',
                   ),
-
-                  // Conteúdo baseado no tipo de visualização e estado
                   BodyView(state: state, viewType: viewType),
                   const SizedBox(height: 24),
                 ]),
@@ -82,7 +78,6 @@ class _PaymentsPageState extends State<PaymentsPage> {
     );
   }
 
-  // Determina o tipo de visualização atual com base no estado do bloc
   PaymentsViewType _getCurrentViewType(PaymentsState state) {
     switch (state) {
       case PaymentsLoaded():

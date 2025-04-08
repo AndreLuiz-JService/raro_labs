@@ -12,7 +12,7 @@ class TransactionsLoadedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.paymentsInfo.transactions.isEmpty) {
-      return const _EmptyTransactionsView();
+      return const EmptyTransactionsView();
     }
 
     return Padding(
@@ -36,8 +36,8 @@ class TransactionsLoadedView extends StatelessWidget {
   }
 }
 
-class _EmptyTransactionsView extends StatelessWidget {
-  const _EmptyTransactionsView();
+class EmptyTransactionsView extends StatelessWidget {
+  const EmptyTransactionsView({super.key});
 
   @override
   Widget build(BuildContext context) {

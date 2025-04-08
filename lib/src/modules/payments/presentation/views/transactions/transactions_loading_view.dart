@@ -20,7 +20,7 @@ class TransactionsLoadingView extends StatelessWidget {
                 2,
                 (index) => Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: _SkeletonItem(),
+                  child: SkeletonItem(),
                 ),
               ),
             ),
@@ -33,8 +33,8 @@ class TransactionsLoadingView extends StatelessWidget {
   }
 }
 
-class _SkeletonItem extends StatelessWidget {
-  const _SkeletonItem();
+class SkeletonItem extends StatelessWidget {
+  const SkeletonItem({super.key});
 
   @override
   Widget build(BuildContext context) {
